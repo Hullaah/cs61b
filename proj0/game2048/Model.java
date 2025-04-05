@@ -5,7 +5,7 @@ import java.util.Observable;
 
 
 /** The state of a game of 2048.
- *  @author TODO: YOUR NAME HERE
+ *  @author Umar Oladimeji Adelowo
  */
 public class Model extends Observable {
     /** Current contents of the board. */
@@ -110,13 +110,42 @@ public class Model extends Observable {
         boolean changed;
         changed = false;
 
-        // TODO: Modify this.board (and perhaps this.score) to account
-        // for the tilt to the Side SIDE. If the board changed, set the
-        // changed local variable to true.
+        board.setViewingPerspective(side);
+        for (int col = 0; col < 4; col++) {
+            changed = changed || tiltCol(col);
+        }
+        board.setViewingPerspective(Side.NORTH);
 
         checkGameOver();
         if (changed) {
             setChanged();
+        }
+        return changed;
+    }
+
+    private boolean tiltCol(int col) {
+        int previousTileRow = -1;
+        int previousTileValue = -1;
+        int numberOfEmptyTile = 0;
+        boolean changed = false;
+        for (int row = 3; row >= 0; row--) {
+            var tile = board.tile(col, row);
+            if (tile == null)
+                numberOfEmptyTile++;
+            else if (tile.value() == previousTileValue) {
+                board.move(col, previousTileRow, tile);
+                score += board.tile(col, previousTileRow).value();
+                changed = true;
+            }
+            else if (numberOfEmptyTile > 0) {
+                previousTileValue = tile.value();
+                previousTileRow = row + numberOfEmptyTile;
+                board.move(col, row + numberOfEmptyTile, tile);
+                changed = true;
+            } else {
+                previousTileValue = tile.value();
+                previousTileRow = row;
+            }
         }
         return changed;
     }
@@ -158,7 +187,7 @@ public class Model extends Observable {
     }
 
     /**
-     * Returns true if there are any valid moves on the board.
+     * Returns true if there are any valid moves on the boardx.
      * There are two ways that there can be valid moves:
      * 1. There is at least one empty space on the board.
      * 2. There are two adjacent tiles with the same value.
