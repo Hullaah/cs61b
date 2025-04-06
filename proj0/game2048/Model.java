@@ -112,7 +112,8 @@ public class Model extends Observable {
 
         board.setViewingPerspective(side);
         for (int col = 0; col < 4; col++) {
-            changed = changed || tiltCol(col);
+            if (tiltCol(col))
+                changed = true;
         }
         board.setViewingPerspective(Side.NORTH);
 
@@ -135,7 +136,10 @@ public class Model extends Observable {
             else if (tile.value() == previousTileValue) {
                 board.move(col, previousTileRow, tile);
                 score += board.tile(col, previousTileRow).value();
+                numberOfEmptyTile++;
                 changed = true;
+                previousTileValue = -1;
+                previousTileRow = -1;
             }
             else if (numberOfEmptyTile > 0) {
                 previousTileValue = tile.value();
@@ -210,13 +214,13 @@ public class Model extends Observable {
      */
     private static boolean haveSameValueWithAdjacentTile(Board b, int row, int col) {
         boolean val = false;
-        if (row + 1 < b.size())
+        if (row + 1 < b.size() && b.tile(col, row + 1) != null)
             val = val || b.tile(col, row).value() == b.tile(col, row + 1).value();
-        if (row - 1 >= 0)
+        if (row - 1 >= 0 && b.tile(col, row - 1) != null)
             val = val || b.tile(col, row).value() == b.tile(col, row - 1).value();
-        if (col + 1 < b.size())
+        if (col + 1 < b.size() && b.tile(col + 1, row) != null)
             val = val || b.tile(col, row).value() == b.tile(col + 1, row).value();
-        if (col - 1 >= 0)
+        if (col - 1 >= 0 && b.tile(col - 1, row) != null)
             val = val || b.tile(col, row).value() == b.tile(col - 1, row).value();
         return val;
     }
