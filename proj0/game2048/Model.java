@@ -112,8 +112,7 @@ public class Model extends Observable {
 
         board.setViewingPerspective(side);
         for (int col = 0; col < 4; col++) {
-            if (tiltCol(col))
-                changed = true;
+            changed = tiltCol(col) || changed;
         }
         board.setViewingPerspective(Side.NORTH);
 
