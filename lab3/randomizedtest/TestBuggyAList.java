@@ -40,23 +40,19 @@ public class TestBuggyAList {
                 int randVal = StdRandom.uniform(0, 100);
                 L.addLast(randVal);
                 L2.addLast(randVal);
-                System.out.println("addLast(" + randVal + ")");
             } else if (operationNumber == 1) {
                 // size
                 int size = L.size();
                 int size2 = L2.size();
                 assertEquals(size, size2);
-                System.out.println("size: " + size);
             } else if (operationNumber == 2 && L.size() > 0) {
                 int last = L.getLast();
                 int last2 = L2.getLast();
                 assertEquals(last2, last);
-                System.out.println("getLast() = " + last);
             } else if (operationNumber == 3 && L.size() > 0)  {
                 int last = L.removeLast();
                 int last2 = L2.removeLast();
                 assertEquals(last, last2);
-                System.out.println("removeLast() = " + last);
             }
         }
     }
