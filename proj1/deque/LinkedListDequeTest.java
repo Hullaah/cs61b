@@ -117,6 +117,20 @@ public class LinkedListDequeTest {
     }
 
     @Test
+    public void testGetRecursive() {
+        LinkedListDeque<Integer> d = new LinkedListDeque<>();
+        d.addFirst(0);
+        d.addLast(1);
+        d.addLast(2);
+        d.addLast(3);
+
+        assertEquals(0, (long) d.getRecursive(0));
+        assertEquals(1, (long) d.getRecursive(1));
+        assertEquals(2, (long) d.getRecursive(2));
+        assertEquals(3, (long) d.getRecursive(3));
+    }
+
+    @Test
     public void testDequeWithSameElementEquals() {
         LinkedListDeque<Integer> d1 = new LinkedListDeque<>();
         d1.addLast(1);
