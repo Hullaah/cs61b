@@ -85,7 +85,7 @@ public class ArrayDequeTest {
     }
 
     @Test
-    public void bigarrdequeTest() {
+    public void bigArrDequeTest() {
         ArrayDeque<Integer> arrd1 = new ArrayDeque<Integer>();
         for (int i = 0; i < 1000000; i++) {
             arrd1.addLast(i);
@@ -153,5 +153,4 @@ public class ArrayDequeTest {
 
         assertNotEquals(d1, d2);
     }
-
 }
