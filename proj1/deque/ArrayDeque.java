@@ -127,10 +127,11 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         final double USAGE_FACTOR = (double) size / items.length;
         if (USAGE_FACTOR < MIN_USAGE_FACTOR && items.length >= 16) {
             T[] arr = (T[]) new Object[items.length / 2];
-            int newLast = arr.length - (items.length - last - 1);
+            int newLast = arr.length - (items.length - last);
             if (first < last) {
                 if (first > 0) System.arraycopy(items, 0, arr, 0, first - 1);
-                System.arraycopy(items, last, arr, newLast + 1, items.length - last - 1);
+                if (newLast + 1 < arr.length)
+                    System.arraycopy(items, last, arr, newLast + 1, items.length - last - 1);
             } else {
                 System.arraycopy(items, last + 1, arr, 0, size);
                 newLast = arr.length - 1;
@@ -142,7 +143,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             T[] arr = (T[]) new Object[items.length * 2];
             int newLast = arr.length - (items.length - last);
             if (first > 0) System.arraycopy(items, 0, arr, 0, first - 1);
-            System.arraycopy(items, last + 1, arr, newLast + 1, items.length - last - 1);
+            if (newLast + 1 < arr.length)
+                System.arraycopy(items, last + 1, arr, newLast + 1, items.length - last - 1);
             items = arr;
             last = newLast;
         }
