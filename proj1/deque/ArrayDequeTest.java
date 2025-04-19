@@ -1,5 +1,6 @@
 package deque;
 
+import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -152,5 +153,39 @@ public class ArrayDequeTest {
         d2.addLast(5);
 
         assertNotEquals(d1, d2);
+    }
+
+    @Test
+    public void randomizedTest() {
+        int N = 5000;
+        ArrayDequeNoResizing<Integer> L1 = new ArrayDequeNoResizing<>();
+        ArrayDeque<Integer> L2 = new ArrayDeque<>();
+
+        for (int i = 0; i < N; i++) {
+            int randomVal = StdRandom.uniform(0, 8);
+            if (randomVal == 0) {
+                int val = StdRandom.uniform(100);
+                L1.addFirst(val);
+                L2.addFirst(val);
+            } else if (randomVal == 1) {
+                int val = StdRandom.uniform(100);
+                L1.addLast(val);
+                L2.addLast(val);
+            } else if (randomVal == 2) {
+                assertEquals(L1.removeFirst(), L2.removeFirst());
+            } else if (randomVal == 3) {
+                assertEquals(L1.removeLast(), L2.removeLast());
+            } else if (randomVal == 4 && !L2.isEmpty()) {
+                int index = StdRandom.uniform(L2.size());
+                assertEquals(L1.get(index), L2.get(index));
+            } else if (randomVal == 5) {
+                assertEquals(L1.size(), L2.size());
+            } else if (randomVal == 6) {
+                L1.printDeque();
+                L2.printDeque();
+            } else {
+                assertEquals(L1.isEmpty(), L2.isEmpty());
+            }
+        }
     }
 }
