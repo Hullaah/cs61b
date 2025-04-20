@@ -5,7 +5,11 @@ import edu.princeton.cs.algs4.Stopwatch;
  * Created by hug.
  */
 public class TimeArrayDeque {
-    private static void printTimingTable(ArrayDeque<Integer> ns, ArrayDeque<Double> times, ArrayDeque<Integer> opCounts) {
+    private static void printTimingTable(
+            ArrayDeque<Integer> ns,
+            ArrayDeque<Double> times,
+            ArrayDeque<Integer> opCounts
+    ) {
         System.out.printf("%12s %12s %12s %12s\n", "n", "time (s)", "# ops", "microsec/op");
         System.out.printf("------------------------------------------------------------\n");
         for (int i = 0; i < ns.size(); i += 1) {
@@ -50,8 +54,9 @@ public class TimeArrayDeque {
             int n = ns.get(i);
             ArrayDeque<Integer> list = new ArrayDeque<>();
             Stopwatch sw = new Stopwatch();
-            for (int j = 0; j < n; j++)
+            for (int j = 0; j < n; j++) {
                 list.addLast(j);
+            }
             times.addLast(sw.elapsedTime());
             opCounts.addLast(n);
         }
