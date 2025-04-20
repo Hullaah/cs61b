@@ -9,8 +9,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         Node prev;
 
         private T get(int index) {
-            if (index == 0)
+            if (index == 0) {
                 return item;
+            }
             return next.get(index - 1);
         }
     }
@@ -50,8 +51,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         T item = sentinel.next.item;
         sentinel.next = sentinel.next.next;
         sentinel.next.prev = sentinel;
-        if (size > 0)
+        if (!isEmpty()) {
             size--;
+        }
         return item;
     }
 
@@ -60,8 +62,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         T item = sentinel.prev.item;
         sentinel.prev = sentinel.prev.prev;
         sentinel.prev.next = sentinel;
-        if (size > 0)
+        if (!isEmpty()) {
             size--;
+        }
         return item;
     }
 
@@ -82,8 +85,9 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public T getRecursive(int index) {
-        if (index >= size || index < 0)
+        if (index >= size || index < 0) {
             return null;
+        }
         return sentinel.next.get(index);
     }
 
@@ -110,19 +114,24 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this)
+        if (obj == this) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (this.getClass() != obj.getClass())
+        }
+        if (this.getClass() != obj.getClass()) {
             return false;
-        LinkedListDeque<T> that = (LinkedListDeque<T>) obj;
-        if (this.size != that.size)
+        }
+        Deque<T> that = (Deque<T>) obj;
+        if (this.size != that.size()) {
             return false;
+        }
         int i = 0;
         for (var item: this) {
-            if (!item.equals(that.get(i)))
+            if (!item.equals(that.get(i))) {
                 return false;
+            }
             i++;
         }
         return true;

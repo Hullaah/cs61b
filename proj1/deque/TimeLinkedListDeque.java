@@ -5,11 +5,11 @@ import edu.princeton.cs.algs4.Stopwatch;
  * Created by hug.
  */
 public class TimeLinkedListDeque {
-    private static void printTimingTable(ArrayDeque<Integer> Ns, ArrayDeque<Double> times, ArrayDeque<Integer> opCounts) {
+    private static void printTimingTable(ArrayDeque<Integer> ns, ArrayDeque<Double> times, ArrayDeque<Integer> opCounts) {
         System.out.printf("%12s %12s %12s %12s\n", "N", "time (s)", "# ops", "microsec/op");
         System.out.printf("------------------------------------------------------------\n");
-        for (int i = 0; i < Ns.size(); i += 1) {
-            int N = Ns.get(i);
+        for (int i = 0; i < ns.size(); i += 1) {
+            int N = ns.get(i);
             double time = times.get(i);
             int opCount = opCounts.get(i);
             double timePerOp = time / opCount * 1e6;
@@ -33,75 +33,78 @@ public class TimeLinkedListDeque {
     }
 
     public static void timeAddLast() {
-        ArrayDeque<Integer> Ns = new ArrayDeque<>();
-        Ns.addLast(1000);
-        Ns.addLast(2000);
-        Ns.addLast(4000);
-        Ns.addLast(8000);
-        Ns.addLast(16000);
-        Ns.addLast(32000);
-        Ns.addLast(64000);
-        Ns.addLast(128000);
+        ArrayDeque<Integer> ns = new ArrayDeque<>();
+        ns.addLast(1000);
+        ns.addLast(2000);
+        ns.addLast(4000);
+        ns.addLast(8000);
+        ns.addLast(16000);
+        ns.addLast(32000);
+        ns.addLast(64000);
+        ns.addLast(128000);
 
         ArrayDeque<Double> times = new ArrayDeque<>();
         ArrayDeque<Integer> opCounts = new ArrayDeque<>();
 
-        for (int i = 0; i < Ns.size(); i++) {
-            int N = Ns.get(i);
+        for (int i = 0; i < ns.size(); i++) {
+            int N = ns.get(i);
             LinkedListDeque<Integer> list = new LinkedListDeque<>();
             Stopwatch sw = new Stopwatch();
-            for (int j = 0; j < N; j++)
+            for (int j = 0; j < N; j++) {
                 list.addLast(j);
+            }
             times.addLast(sw.elapsedTime());
             opCounts.addLast(N);
         }
-        printTimingTable(Ns, times, opCounts);
+        printTimingTable(ns, times, opCounts);
     }
 
     public static void timeAddFirst() {
-        ArrayDeque<Integer> Ns = new ArrayDeque<>();
-        Ns.addLast(1000);
-        Ns.addLast(2000);
-        Ns.addLast(4000);
-        Ns.addLast(8000);
-        Ns.addLast(16000);
-        Ns.addLast(32000);
-        Ns.addLast(64000);
-        Ns.addLast(128000);
+        ArrayDeque<Integer> ns = new ArrayDeque<>();
+        ns.addLast(1000);
+        ns.addLast(2000);
+        ns.addLast(4000);
+        ns.addLast(8000);
+        ns.addLast(16000);
+        ns.addLast(32000);
+        ns.addLast(64000);
+        ns.addLast(128000);
 
         ArrayDeque<Double> times = new ArrayDeque<>();
         ArrayDeque<Integer> opCounts = new ArrayDeque<>();
 
-        for (int i = 0; i < Ns.size(); i++) {
-            int N = Ns.get(i);
+        for (int i = 0; i < ns.size(); i++) {
+            int N = ns.get(i);
             LinkedListDeque<Integer> list = new LinkedListDeque<>();
             Stopwatch sw = new Stopwatch();
-            for (int j = 0; j < N; j++)
+            for (int j = 0; j < N; j++) {
                 list.addFirst(j);
+            }
             times.addLast(sw.elapsedTime());
             opCounts.addLast(N);
         }
-        printTimingTable(Ns, times, opCounts);
+        printTimingTable(ns, times, opCounts);
     }
     public static void timeRemoveFirst() {
-        ArrayDeque<Integer> Ns = new ArrayDeque<>();
-        Ns.addLast(1000);
-        Ns.addLast(2000);
-        Ns.addLast(4000);
-        Ns.addLast(8000);
-        Ns.addLast(16000);
-        Ns.addLast(32000);
-        Ns.addLast(64000);
-        Ns.addLast(128000);
+        ArrayDeque<Integer> ns = new ArrayDeque<>();
+        ns.addLast(1000);
+        ns.addLast(2000);
+        ns.addLast(4000);
+        ns.addLast(8000);
+        ns.addLast(16000);
+        ns.addLast(32000);
+        ns.addLast(64000);
+        ns.addLast(128000);
 
         ArrayDeque<Double> times = new ArrayDeque<>();
         ArrayDeque<Integer> opCounts = new ArrayDeque<>();
 
-        for (int i = 0; i < Ns.size(); i++) {
-            int N = Ns.get(i);
+        for (int i = 0; i < ns.size(); i++) {
+            int N = ns.get(i);
             LinkedListDeque<Integer> list = new LinkedListDeque<>();
-            for (int j = 0; j < N; j++)
+            for (int j = 0; j < N; j++) {
                 list.addLast(j);
+            }
             Stopwatch sw = new Stopwatch();
             for (int j = 0; j < N; j++) {
                 list.removeFirst();
@@ -109,28 +112,29 @@ public class TimeLinkedListDeque {
             times.addLast(sw.elapsedTime());
             opCounts.addLast(N);
         }
-        printTimingTable(Ns, times, opCounts);
+        printTimingTable(ns, times, opCounts);
     }
 
     public static void timeRemoveLast() {
-        ArrayDeque<Integer> Ns = new ArrayDeque<>();
-        Ns.addLast(1000);
-        Ns.addLast(2000);
-        Ns.addLast(4000);
-        Ns.addLast(8000);
-        Ns.addLast(16000);
-        Ns.addLast(32000);
-        Ns.addLast(64000);
-        Ns.addLast(128000);
+        ArrayDeque<Integer> ns = new ArrayDeque<>();
+        ns.addLast(1000);
+        ns.addLast(2000);
+        ns.addLast(4000);
+        ns.addLast(8000);
+        ns.addLast(16000);
+        ns.addLast(32000);
+        ns.addLast(64000);
+        ns.addLast(128000);
 
         ArrayDeque<Double> times = new ArrayDeque<>();
         ArrayDeque<Integer> opCounts = new ArrayDeque<>();
 
-        for (int i = 0; i < Ns.size(); i++) {
-            int N = Ns.get(i);
+        for (int i = 0; i < ns.size(); i++) {
+            int N = ns.get(i);
             LinkedListDeque<Integer> list = new LinkedListDeque<>();
-            for (int j = 0; j < N; j++)
+            for (int j = 0; j < N; j++) {
                 list.addLast(j);
+            }
             Stopwatch sw = new Stopwatch();
             for (int j = 0; j < N; j++) {
                 list.removeLast();
@@ -138,28 +142,29 @@ public class TimeLinkedListDeque {
             times.addLast(sw.elapsedTime());
             opCounts.addLast(N);
         }
-        printTimingTable(Ns, times, opCounts);
+        printTimingTable(ns, times, opCounts);
     }
 
     public static void timeGet() {
-        ArrayDeque<Integer> Ns = new ArrayDeque<>();
-        Ns.addLast(1000);
-        Ns.addLast(2000);
-        Ns.addLast(4000);
-        Ns.addLast(8000);
-        Ns.addLast(16000);
-        Ns.addLast(32000);
-        Ns.addLast(64000);
-        Ns.addLast(128000);
+        ArrayDeque<Integer> ns = new ArrayDeque<>();
+        ns.addLast(1000);
+        ns.addLast(2000);
+        ns.addLast(4000);
+        ns.addLast(8000);
+        ns.addLast(16000);
+        ns.addLast(32000);
+        ns.addLast(64000);
+        ns.addLast(128000);
 
         ArrayDeque<Double> times = new ArrayDeque<>();
         ArrayDeque<Integer> opCounts = new ArrayDeque<>();
 
-        for (int i = 0; i < Ns.size(); i++) {
-            int N = Ns.get(i);
+        for (int i = 0; i < ns.size(); i++) {
+            int N = ns.get(i);
             LinkedListDeque<Integer> list = new LinkedListDeque<>();
-            for (int j = 0; j < N; j++)
+            for (int j = 0; j < N; j++) {
                 list.addLast(j);
+            }
             Stopwatch sw = new Stopwatch();
             for (int j = 0; j < N; j++) {
                 list.get(i);
@@ -167,33 +172,34 @@ public class TimeLinkedListDeque {
             times.addLast(sw.elapsedTime());
             opCounts.addLast(N);
         }
-        printTimingTable(Ns, times, opCounts);
+        printTimingTable(ns, times, opCounts);
     }
 
     public static void timeSize() {
-        ArrayDeque<Integer> Ns = new ArrayDeque<>();
-        Ns.addLast(1000);
-        Ns.addLast(2000);
-        Ns.addLast(4000);
-        Ns.addLast(8000);
-        Ns.addLast(16000);
-        Ns.addLast(32000);
-        Ns.addLast(64000);
-        Ns.addLast(128000);
+        ArrayDeque<Integer> ns = new ArrayDeque<>();
+        ns.addLast(1000);
+        ns.addLast(2000);
+        ns.addLast(4000);
+        ns.addLast(8000);
+        ns.addLast(16000);
+        ns.addLast(32000);
+        ns.addLast(64000);
+        ns.addLast(128000);
 
         ArrayDeque<Double> times = new ArrayDeque<>();
         ArrayDeque<Integer> opCounts = new ArrayDeque<>();
 
-        for (int i = 0; i < Ns.size(); i++) {
-            int N = Ns.get(i);
+        for (int i = 0; i < ns.size(); i++) {
+            int N = ns.get(i);
             LinkedListDeque<Integer> list = new LinkedListDeque<>();
-            for (int j = 0; j < N; j++)
+            for (int j = 0; j < N; j++) {
                 list.addLast(j);
+            }
             Stopwatch sw = new Stopwatch();
             list.size();
             times.addLast(sw.elapsedTime());
             opCounts.addLast(1);
         }
-        printTimingTable(Ns, times, opCounts);
+        printTimingTable(ns, times, opCounts);
     }
 }

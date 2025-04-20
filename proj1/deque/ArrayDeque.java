@@ -3,7 +3,7 @@ package deque;
 import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
-    private final static double MIN_USAGE_FACTOR = 0.25;
+    private static final double MIN_USAGE_FACTOR = 0.25;
     private T[] items;
     private int first, last;
     private int size;
@@ -114,8 +114,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (this.getClass() != obj.getClass()) {
             return false;
         }
-        ArrayDeque<T> that = (ArrayDeque<T>)  obj;
-        if (this.size != that.size) {
+        Deque<T> that = (Deque<T>)  obj;
+        if (this.size != that.size()) {
             return false;
         }
         int i = 0;
