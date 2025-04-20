@@ -135,13 +135,11 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             int newLast = arr.length - (items.length - last);
             if (first < last) {
                 System.arraycopy(items, 0, arr, 0, first);
-                if (newLast + 1 < arr.length) {
-                    System.arraycopy(items, last, arr, newLast + 1, items.length - last - 1);
-                }
+                System.arraycopy(items, last + 1, arr, newLast + 1, items.length - last - 1);
             } else {
                 System.arraycopy(items, last + 1, arr, 0, size);
                 newLast = arr.length - 1;
-                first = size - 1;
+                first = size;
             }
             items = arr;
             last = newLast;
@@ -149,9 +147,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             T[] arr = (T[]) new Object[items.length * 2];
             int newLast = arr.length - (items.length - last);
             System.arraycopy(items, 0, arr, 0, first);
-            if (newLast + 1 < arr.length) {
-                System.arraycopy(items, last + 1, arr, newLast + 1, items.length - last - 1);
-            }
+            System.arraycopy(items, last + 1, arr, newLast + 1, items.length - last - 1);
             items = arr;
             last = newLast;
         }

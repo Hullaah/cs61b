@@ -157,7 +157,7 @@ public class ArrayDequeTest {
 
     @Test
     public void randomizedTest() {
-        int N = 5000;
+        int N = 10000;
         ArrayDequeNoResizing<Integer> L1 = new ArrayDequeNoResizing<>();
         ArrayDeque<Integer> L2 = new ArrayDeque<>();
 
@@ -172,9 +172,13 @@ public class ArrayDequeTest {
                 L1.addLast(val);
                 L2.addLast(val);
             } else if (randomVal == 2) {
-                assertEquals(L1.removeFirst(), L2.removeFirst());
+                var first1 = L1.removeFirst();
+                var first2 = L2.removeFirst();
+                assertEquals(first1, first2);
             } else if (randomVal == 3) {
-                assertEquals(L1.removeLast(), L2.removeLast());
+                var last1 = L1.removeLast();
+                var last2 = L2.removeLast();
+                assertEquals(last1, last2);
             } else if (randomVal == 4 && !L2.isEmpty()) {
                 int index = StdRandom.uniform(L2.size());
                 assertEquals(L1.get(index), L2.get(index));
