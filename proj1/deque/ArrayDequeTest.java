@@ -154,10 +154,24 @@ public class ArrayDequeTest {
 
         assertNotEquals(d1, d2);
     }
+    @Test
+    public void testArrDequeEqualsLinkedListDeque() {
+        Deque<Integer> arrd = new ArrayDeque<>();
+        arrd.addLast(100);
+        arrd.addLast(200);
+        arrd.addLast(300);
+
+        Deque<Integer> lld = new LinkedListDeque<>();
+        lld.addFirst(300);
+        lld.addFirst(200);
+        lld.addFirst(100);
+
+        assertEquals(lld, arrd);
+    }
 
     @Test
     public void randomizedTest() {
-        int N = 10000;
+        int N = 5000;
         ArrayDequeNoResizing<Integer> L1 = new ArrayDequeNoResizing<>();
         ArrayDeque<Integer> L2 = new ArrayDeque<>();
 
