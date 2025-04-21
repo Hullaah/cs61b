@@ -41,7 +41,7 @@ public class GuitarString {
     public void tic() {
         double front = buffer.removeFirst();
         double second = buffer.get(1);
-        buffer.addLast(((front + second) / 2 ) * DECAY);
+        buffer.addLast(((front + second) / 2) * DECAY);
     }
 
     /* Return the double at the front of the buffer. */
