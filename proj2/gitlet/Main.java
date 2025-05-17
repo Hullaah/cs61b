@@ -1,7 +1,9 @@
 package gitlet;
 
+import java.util.Date;
+
 /** Driver class for Gitlet, a subset of the Git version-control system.
- *  @author TODO
+ *  @author Umar Adelowo
  */
 public class Main {
 
@@ -9,16 +11,35 @@ public class Main {
      *  <COMMAND> <OPERAND1> <OPERAND2> ... 
      */
     public static void main(String[] args) {
-        // TODO: what if args is empty?
+        System.out.println(new Date());
+        CommandValidator cv = new CommandValidator(args);
+        cv.validateNotEmpty();
         String firstArg = args[0];
         switch(firstArg) {
-            case "init":
-                // TODO: handle the `init` command
-                break;
-            case "add":
-                // TODO: handle the `add [filename]` command
-                break;
-            // TODO: FILL THE REST IN
+            case "init" -> {
+                cv.validateInit();
+            }
+            case "add" -> {
+                cv.validateAdd();
+            }
+            case "commit" -> {
+                cv.validateCommit();
+            }
+            case "log" -> {
+                cv.validateLog();
+            }
+            case "global-log" -> {
+                cv.validateGlobalLog();
+            }
+            default -> {
+                System.out.println("No command with that name exists.");
+            }
+        }
+    }
+
+    private static void validateLength(String[] args) {
+        if (args.length == 0) {
+            System.exit(0);
         }
     }
 }
