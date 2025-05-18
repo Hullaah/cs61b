@@ -21,13 +21,21 @@ public class Main {
             }
             case "add" -> {
                 cv.validateAdd();
-                Repository.add(args[1]);
+                String fileName = args[1];
+                Repository.add(fileName);
             }
             case "commit" -> {
                 cv.validateCommit();
+                String message = args[1];
+                Repository.commit(message);
+            }
+            case  "rm" -> {
+//                cv.validateRm();
+//                Repository.rm(args[1]);
             }
             case "log" -> {
                 cv.validateLog();
+                Repository.log();
             }
             case "global-log" -> {
                 cv.validateGlobalLog();

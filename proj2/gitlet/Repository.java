@@ -2,6 +2,7 @@ package gitlet;
 
 import java.io.File;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import static gitlet.Utils.*;
 
@@ -51,30 +52,70 @@ public class Repository {
             System.exit(0);
         }
         Blob b = new Blob(fileName);
-        Commit headCommit = getHeadCommit();
-        TreeMap<String, String> stagedFiles = getStagedFiles();
-        if (b.sha1().equals(headCommit.getFileBlobs().get(fileName))) {
-            System.exit(0);
-        } else if (b.sha1().equals(stagedFiles.get(fileName))) {
-            System.exit(0);
+        Commit headCommit = Commit.getHeadCommit();
+        TreeMap<String, String> stagedFilesForAddition = getStagedFilesForAddition();
+        TreeSet<String> stagedFilesForRemoval = getStagedFilesForRemoval();
+        String blobId = b.sha1();
+        String headBlobId = headCommit.getFileBlobs().get(fileName);
+        if (blobId.equals(headBlobId)) {
+            stagedFilesForAddition.remove(fileName);
+            stagedFilesForRemoval.remove(fileName);
+            writeObject(join(GITLET_DIR, "index"), stagedFilesForAddition);
+            writeObject(join(GITLET_DIR, "removal"), stagedFilesForRemoval);
+        } else if (blobId.equals(stagedFilesForAddition.get(fileName))) {
+            return;
         } else {
-            String blobId = b.save();
-            stagedFiles.put(fileName, blobId);
-            writeObject(join(GITLET_DIR, "index"), stagedFiles);
+            b.save();
+            stagedFilesForAddition.put(fileName, blobId);
+            writeObject(join(GITLET_DIR, "index"), stagedFilesForAddition);
         }
     }
 
-    private static Commit getHeadCommit() {
-        File head = join(GITLET_DIR, "HEAD");
-        File branch = join(BRANCHES_DIR, readContentsAsString(head).strip());
-        return readObject(join(COMMITS_DIR, readContentsAsString(branch).strip()), Commit.class);
-    }
 
-    private static TreeMap<String, String> getStagedFiles() {
+
+    private static TreeMap<String, String> getStagedFilesForAddition() {
         File index = join(GITLET_DIR, "index");
         if (!index.exists()) {
             return new TreeMap<>();
         }
         return readObject(index, TreeMap.class);
+    }
+
+    private static TreeSet<String> getStagedFilesForRemoval() {
+        File removal = join(GITLET_DIR, "removal");
+        if (!removal.exists()) {
+            return new TreeSet<>();
+        }
+        return readObject(removal, TreeSet.class);
+    }
+
+    public static void commit(String message) {
+        if (message.isEmpty()) {
+            System.out.println("Please enter a commit message.");
+        }
+        TreeMap<String,String> stagedFilesForAddition = getStagedFilesForAddition();
+        TreeSet<String> stagedFilesForRemoval = getStagedFilesForRemoval();
+        if (stagedFilesForAddition.isEmpty() && stagedFilesForRemoval.isEmpty()) {
+            System.out.println("No changes added to the commit.");
+            return;
+        }
+        Commit headCommit = Commit.getHeadCommit();
+        Commit commit = new Commit(message, headCommit.sha1(), headCommit);
+        Commit.setHeadCommit(commit);
+        for (var entry: stagedFilesForAddition.entrySet()) {
+            commit.addFile(entry.getKey(), entry.getValue());
+        }
+        for (var stagedFileForRemoval: stagedFilesForRemoval) {
+            commit.removeFile(stagedFileForRemoval);
+        }
+        join(GITLET_DIR, "index").delete();
+        join(GITLET_DIR, "removal").delete();
+    }
+
+    public static void log() {
+        for (Commit c = Commit.getHeadCommit(); c != null; c = c.getParent()) {
+            System.out.println("===");
+            System.out.println(c);
+        }
     }
 }
