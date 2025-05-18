@@ -11,16 +11,17 @@ public class Main {
      *  <COMMAND> <OPERAND1> <OPERAND2> ... 
      */
     public static void main(String[] args) {
-        System.out.println(new Date());
         CommandValidator cv = new CommandValidator(args);
         cv.validateNotEmpty();
         String firstArg = args[0];
         switch(firstArg) {
             case "init" -> {
                 cv.validateInit();
+                Repository.init();
             }
             case "add" -> {
                 cv.validateAdd();
+                Repository.add(args[1]);
             }
             case "commit" -> {
                 cv.validateCommit();

@@ -10,9 +10,7 @@ public class CommandValidator {
     }
 
     private void checkWhetherInInitializedGitletDirectory() {
-        String directoryPath = System.getProperty("user.dir");
-        File directory = Utils.join(directoryPath, ".gitlet");
-        if (!directory.exists()) {
+        if (!Repository.GITLET_DIR.exists()) {
             System.out.println("Not in an initialized Gitlet directory.");
             System.exit(0);
         }
