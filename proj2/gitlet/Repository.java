@@ -101,13 +101,14 @@ public class Repository {
         }
         Commit headCommit = Commit.getHeadCommit();
         Commit commit = new Commit(message, headCommit.sha1(), headCommit);
-        Commit.setHeadCommit(commit);
         for (var entry: stagedFilesForAddition.entrySet()) {
             commit.addFile(entry.getKey(), entry.getValue());
         }
         for (var stagedFileForRemoval: stagedFilesForRemoval) {
             commit.removeFile(stagedFileForRemoval);
         }
+        commit.save();
+        Commit.setHeadCommit(commit);
         join(GITLET_DIR, "index").delete();
         join(GITLET_DIR, "removal").delete();
     }

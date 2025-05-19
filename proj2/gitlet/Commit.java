@@ -51,8 +51,8 @@ public class Commit implements Serializable {
     public static void setHeadCommit(Commit commit) {
         File head = join(Repository.GITLET_DIR, "HEAD");
         File branch = join(Repository.BRANCHES_DIR, readContentsAsString(head).strip());
-        String id = commit.save();
-        writeContents(branch, id);
+        String id = commit.sha1();
+        writeContents(branch, id + "\n");
     }
 
     public void addFile(String file, String blob) {
