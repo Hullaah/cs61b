@@ -53,4 +53,9 @@ public class CommandValidator {
         validateLength(1);
         checkWhetherInInitializedGitletDirectory();
     }
+
+    public void validateRm() {
+        validateLength(2);
+        checkWhetherInInitializedGitletDirectory();
+    }
 }

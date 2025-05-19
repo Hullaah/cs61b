@@ -30,8 +30,9 @@ public class Main {
                 Repository.commit(message);
             }
             case  "rm" -> {
-//                cv.validateRm();
-//                Repository.rm(args[1]);
+                cv.validateRm();
+                String fileName = args[1];
+                Repository.rm(fileName);
             }
             case "log" -> {
                 cv.validateLog();

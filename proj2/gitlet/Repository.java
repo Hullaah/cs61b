@@ -71,7 +71,22 @@ public class Repository {
         }
     }
 
-
+    public static void rm(String fileName) {
+        TreeMap<String, String> stagedFilesForAddition = getStagedFilesForAddition();
+        TreeSet<String> stagedFilesForRemoval = getStagedFilesForRemoval();
+        Commit headCommit = Commit.getHeadCommit();
+        boolean stagedForAddition = stagedFilesForAddition.containsKey(fileName);
+        boolean trackedByHeadCommit = headCommit.getFileBlobs().containsKey(fileName);
+        if (!stagedForAddition && !trackedByHeadCommit) {
+            System.out.println("No reason to remove the file.");
+            System.exit(0);
+        } else if (stagedForAddition) {
+            stagedFilesForAddition.remove(fileName);
+        } else {
+            restrictedDelete(fileName);
+            stagedFilesForRemoval.add(fileName);
+        }
+    }
 
     private static TreeMap<String, String> getStagedFilesForAddition() {
         File index = join(GITLET_DIR, "index");
@@ -92,6 +107,7 @@ public class Repository {
     public static void commit(String message) {
         if (message.isEmpty()) {
             System.out.println("Please enter a commit message.");
+            System.exit(0);
         }
         TreeMap<String,String> stagedFilesForAddition = getStagedFilesForAddition();
         TreeSet<String> stagedFilesForRemoval = getStagedFilesForRemoval();
