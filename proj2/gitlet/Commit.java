@@ -55,6 +55,11 @@ public class Commit implements Serializable {
         writeContents(branch, id + "\n");
     }
 
+    public static Commit fromFile(String fileName) {
+        File commitFile = join(Repository.COMMITS_DIR, fileName);
+        return readObject(commitFile, Commit.class);
+    }
+
     public void addFile(String file, String blob) {
         fileBlobs.put(file, blob);
     }

@@ -135,4 +135,11 @@ public class Repository {
             System.out.println(c);
         }
     }
+
+    public static void globalLog() {
+        for (var fileName: plainFilenamesIn(COMMITS_DIR)) {
+            System.out.println("===");
+            System.out.println(Commit.fromFile(fileName));
+        }
+    }
 }

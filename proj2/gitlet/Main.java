@@ -40,6 +40,7 @@ public class Main {
             }
             case "global-log" -> {
                 cv.validateGlobalLog();
+                Repository.globalLog();
             }
             default -> {
                 System.out.println("No command with that name exists.");
