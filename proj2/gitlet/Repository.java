@@ -142,4 +142,13 @@ public class Repository {
             System.out.println(Commit.fromFile(fileName));
         }
     }
+
+    public static void find(String message) {
+        for (var fileName: plainFilenamesIn(COMMITS_DIR)) {
+            Commit c = Commit.fromFile(fileName);
+            if (c.getMessage().equals(message)) {
+                System.out.println(c.sha1());
+            }
+        }
+    }
 }

@@ -42,6 +42,11 @@ public class Main {
                 cv.validateGlobalLog();
                 Repository.globalLog();
             }
+            case "find" -> {
+                cv.validateFind();
+                String message = args[1];
+                Repository.find(message);
+            }
             default -> {
                 System.out.println("No command with that name exists.");
             }

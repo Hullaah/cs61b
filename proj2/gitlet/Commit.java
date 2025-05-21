@@ -87,6 +87,10 @@ public class Commit implements Serializable {
         return fileBlobs;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
     public Commit getParent() {
         if (parent == null) {
             return null;
